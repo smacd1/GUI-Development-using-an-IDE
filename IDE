@@ -1,0 +1,112 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GameIntroduction {
+    private JFrame frame;
+    private JPanel mainPanel;
+    private JButton instructionsButton;
+    private JButton playButton;
+    private JButton quitButton;
+
+    public GameIntroduction() {
+        // Create the main frame
+        frame = new JFrame("Game Introduction");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create the main panel
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(3, 1));
+
+        // Create buttons and add action listeners
+        instructionsButton = new JButton("Instructions");
+        instructionsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showInstructionsWindow();
+            }
+        });
+
+        playButton = new JButton("Play");
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showGameWindow();
+            }
+        });
+
+        quitButton = new JButton("Quit");
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+
+        // Add buttons to the main panel
+        mainPanel.add(instructionsButton);
+        mainPanel.add(playButton);
+        mainPanel.add(quitButton);
+
+        // Add the main panel to the frame
+        frame.getContentPane().add(mainPanel);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private void showInstructionsWindow() {
+        // Create the instructions window
+        JFrame instructionsFrame = new JFrame("Instructions");
+        instructionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Create the instructions label and back button
+        JLabel instructionsLabel = new JLabel("This is the instructions window.");
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                instructionsFrame.dispose();
+            }
+        });
+
+        // Add the label and back button to the instructions frame
+        instructionsFrame.getContentPane().add(instructionsLabel, BorderLayout.CENTER);
+        instructionsFrame.getContentPane().add(backButton, BorderLayout.SOUTH);
+        instructionsFrame.pack();
+        instructionsFrame.setVisible(true);
+    }
+
+    private void showGameWindow() {
+        // Create the game window
+        JFrame gameFrame = new JFrame("Game");
+        gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Create the game label, text field, and check button
+        JLabel gameLabel = new JLabel("Guess a number between 1-100");
+        JTextField guessTextField = new JTextField(10);
+        JButton checkButton = new JButton("Check");
+        checkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int guess = Integer.parseInt(guessTextField.getText());
+                checkGuess(guess);
+            }
+        });
+
+        // Add the label, text field, and check button to the game frame
+        gameFrame.getContentPane().add(gameLabel, BorderLayout.NORTH);
+        gameFrame.getContentPane().add(guessTextField, BorderLayout.CENTER);
+        gameFrame.getContentPane().add(checkButton, BorderLayout.SOUTH);
+        gameFrame.pack();
+        gameFrame.setVisible(true);
+    }
+
+    private void checkGuess(int guess) {
+        // Perform the guess checking logic here (e.g., compare with a random number)
+        // Display the result using JOptionPane or modify the game window directly
+        // Example code using JOptionPane:
+        int randomNumber = (int) (Math.random() * 100) + 1;
+        if (guess > randomNumber) {
+            JOptionPane.showMessageDialog(null, "Too high");
+        } else if (guess < randomNumber)
